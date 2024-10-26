@@ -7,6 +7,12 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import {
   AlertDialog,
   AlertDialogAction,
   AlertDialogCancel,
@@ -51,9 +57,18 @@ const MessageCard = ({ message, onMessageDelete }: MessageCardProps) => {
         <CardTitle>{message.content}</CardTitle>
         <AlertDialog>
           <AlertDialogTrigger asChild>
-            <Button className="w-20 h-7 rounded" variant="destructive">
-              <X />
-            </Button>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger>
+                  <Button className="w-20 h-7 rounded" variant="destructive">
+                    <X />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>To delete message</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
           </AlertDialogTrigger>
           <AlertDialogContent>
             <AlertDialogHeader>
