@@ -25,7 +25,7 @@ export async function POST(request: Request) {
   try {
     const updateUser = await UserModel.findByIdAndUpdate(
       userId,
-      { isAcceptingMessages: acceptMessages },
+      { isAcceptingMessage: acceptMessages },
       { new: true }
     );
 
@@ -97,7 +97,7 @@ export async function GET(request: Request) {
       return Response.json(
         {
           success: true,
-          isAcceptingMessages: foundUser.isAcceptingMessage,
+          isAcceptingMessage: foundUser.isAcceptingMessage,
         },
         {
           status: 200,
@@ -117,3 +117,108 @@ export async function GET(request: Request) {
     );
   }
 }
+
+// import { getServerSession } from "next-auth";
+// import { authOptions } from "../auth/[...nextauth]/options";
+// import dbConnect from "@/lib/dbConnect";
+// import UserModel from "@/model/User";
+// import { User } from "next-auth";
+
+// // Response structure interface
+// interface ApiResponse {
+//   success: boolean;
+//   message: string;
+//   isAcceptingMessage?: boolean;
+//   updateUser?: User;
+// }
+
+// // POST method to update user's acceptance status
+// export async function POST(request: Request) {
+//   await dbConnect();
+//   const session = await getServerSession(authOptions);
+
+//   // Check for authenticated session
+//   if (!session || !session.user) {
+//     return Response.json(
+//       { success: false, message: "Not authenticated" },
+//       { status: 401 }
+//     );
+//   }
+
+//   const userId = (session.user as User)._id; // Directly accessing the user ID
+//   const { acceptMessages } = await request.json();
+
+//   try {
+//     const updatedUser = await UserModel.findByIdAndUpdate(
+//       userId,
+//       { isAcceptingMessages: acceptMessages },
+//       { new: true }
+//     );
+
+//     if (!updatedUser) {
+//       return Response.json(
+//         { success: false, message: "Failed to update user status" },
+//         { status: 404 }
+//       );
+//     }
+
+//     return Response.json(
+//       {
+//         success: true,
+//         message: "Messages acceptance status updated successfully",
+//         updateUser: updatedUser,
+//       },
+//       { status: 200 }
+//     );
+//   } catch (error) {
+//     console.error("Failed to update user status:", error);
+//     return Response.json(
+//       { success: false, message: "Failed to update user status" },
+//       { status: 500 }
+//     );
+//   }
+// }
+
+// // GET method to fetch user's acceptance status
+// export async function GET(request: Request) {
+//   await dbConnect(); // Ensure we await the database connection
+//   const session = await getServerSession(authOptions);
+
+//   // Check for authenticated session
+//   if (!session || !session.user) {
+//     return Response.json(
+//       { success: false, message: "Not authenticated" },
+//       { status: 401 }
+//     );
+//   }
+
+//   const userId = (session.user as User)._id; // Directly accessing the user ID
+
+//   try {
+//     const foundUser = await UserModel.findById(userId);
+//     if (!foundUser) {
+//       return Response.json(
+//         { success: false, message: "User not found" },
+//         { status: 404 }
+//       );
+//     }
+
+//     return Response.json(
+//       {
+//         success: true,
+//         isAcceptingMessage: foundUser.isAcceptingMessage, // Ensure the correct field is used
+//       },
+//       { status: 200 }
+//     );
+//   } catch (error) {
+//     console.error("Error getting message acceptance:", error);
+//     return Response.json(
+//       {
+//         success: false,
+//         message: "Error retrieving message acceptance status",
+//         error: error instanceof Error ? error.message : "Unknown error",
+//       },
+//       { status: 500 }
+//     );
+//   }
+// }

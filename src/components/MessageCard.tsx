@@ -17,6 +17,8 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import dayjs from "dayjs";
+
 import { Button } from "./ui/button";
 import { X } from "lucide-react";
 import { Message } from "@/model/User";
@@ -46,11 +48,11 @@ const MessageCard = ({ message, onMessageDelete }: MessageCardProps) => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Card Title</CardTitle>
+        <CardTitle>{message.content}</CardTitle>
         <AlertDialog>
           <AlertDialogTrigger asChild>
-            <Button variant="destructive">
-              <X className="w-5 h-5" />
+            <Button className="w-20 h-7 rounded" variant="destructive">
+              <X />
             </Button>
           </AlertDialogTrigger>
           <AlertDialogContent>
@@ -69,7 +71,10 @@ const MessageCard = ({ message, onMessageDelete }: MessageCardProps) => {
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>
-        <CardDescription>Card Description</CardDescription>
+        <CardDescription>
+          {" "}
+          {dayjs(message.createdAt).format("MMM D, YYYY h:mm A")}
+        </CardDescription>
       </CardHeader>
       <CardContent>{/* <p>Card Content</p> */}</CardContent>
     </Card>

@@ -18,7 +18,7 @@ export default function RootLayout({
     <html lang="en">
       <AuthProvider>
         <body>
-          <Navbar />
+          {/* <Navbar /> */}
           {children}
           <Toaster />
         </body>
