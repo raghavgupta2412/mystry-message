@@ -29,3 +29,7 @@
 
 //   return result.toDataStreamResponse();
 // }
+
+const route = () => {};
+
+export default route;
