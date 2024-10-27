@@ -18,14 +18,39 @@ export async function sendVerificationEmail(
         pass: process.env.pass,
       },
     });
+    await new Promise((resolve, reject) => {
+      // verify connection configuration
+      transporter.verify(function (error, success) {
+        if (error) {
+          console.log(error);
+          reject(error);
+        } else {
+          console.log("Server is ready to take our messages");
+          resolve(success);
+        }
+      });
+    });
     const emailHtml = await render(
       VerificationEmail({ username, otp: verifyCode })
     );
-    transporter.sendMail({
-      from: "raghav.gupta_cs21@gla.ac.in",
-      to: email,
-      subject: "Mystry Message | Verifiction Code",
-      html: emailHtml,
+    await new Promise((resolve, reject) => {
+      transporter.sendMail(
+        {
+          from: "raghav.gupta_cs21@gla.ac.in",
+          to: email,
+          subject: "Mystry Message | Verifiction Code",
+          html: emailHtml,
+        },
+        (err, info) => {
+          if (err) {
+            console.error(err);
+            reject(err);
+          } else {
+            console.log(info);
+            resolve(info);
+          }
+        }
+      );
     });
     return { success: true, message: "verifiction email send successfulyy" };
   } catch (emailError) {
