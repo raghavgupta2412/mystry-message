@@ -41,7 +41,7 @@ const page = () => {
 
   const onSubmit = async (data: z.infer<typeof MessageSchema>) => {
     await checkMessage();
-    if (check) {
+    if (false) {
     } else {
       setIsSubmitting(true);
       try {
