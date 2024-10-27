@@ -32,15 +32,15 @@ const page = () => {
     resolver: zodResolver(MessageSchema),
   });
 
-  const [check, setCheck] = useState(false);
+  // const [check, setCheck] = useState(false);
 
-  const checkMessage = async () => {
-    const response = await axios.get<ApiResponse>("/api/accept-messages");
-    setCheck(response.data.isAcceptingMessage as boolean);
-  };
+  // const checkMessage = async () => {
+  //   const response = await axios.get<ApiResponse>("/api/accept-messages");
+  //   setCheck(response.data.isAcceptingMessage as boolean);
+  // };
 
   const onSubmit = async (data: z.infer<typeof MessageSchema>) => {
-    await checkMessage();
+    // await checkMessage();
     if (false) {
     } else {
       setIsSubmitting(true);
@@ -103,7 +103,7 @@ const page = () => {
               </Button>
             ) : (
               <Button
-                onClick={checkMessage}
+                // onClick={checkMessage}
                 type="submit"
                 disabled={isSubmitting}
               >
