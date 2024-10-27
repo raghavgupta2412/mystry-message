@@ -9,7 +9,10 @@ export async function sendVerificationEmail(
 ): Promise<ApiResponse> {
   try {
     const transporter = nodemailer.createTransport({
+      host: "smtp.gmail.com",
       service: "gmail",
+      secure: true,
+      port: 465,
       auth: {
         user: process.env.user,
         pass: process.env.pass,
