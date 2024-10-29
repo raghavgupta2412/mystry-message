@@ -53,6 +53,7 @@ const page = () => {
           title: "Message Send",
           description: response.data.message,
         });
+        form.setValue("content", "");
       } catch (error) {
         console.error("Error in sign up of user", error);
         const axiosError = error as AxiosError<ApiResponse>;
